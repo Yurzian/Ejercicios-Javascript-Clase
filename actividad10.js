@@ -5,11 +5,11 @@ const unica = arr =>
 
     let resul=[];
 
-    for (let key in arr)
+    for (let valor of arr)
     {
-        if (!resul.includes(arr[key]))
+        if (!resul.includes(valor))
         {
-            resul.push(arr[key]);
+            resul.push(valor);
         }
     }
 
