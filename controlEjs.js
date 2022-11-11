@@ -52,19 +52,27 @@ console.log (ordena([3, 2, 30, 4], false));  // devuelve un array nuevo ordenado
 
 function tajada (arr, inicio, fin)
 {
-    let resul=[];
-
-    for (let i=inicio;i < fin; i++)
+    if (Array.isArray(arr) && arr.length>0 && typeof inicio != "number" && inicio > 1 && typeof fin != "number" && fin > 1)
     {
-        resul.push(arr[i]);
-    }
+        let resul=[];
 
-    return resul;
+        for (let i=inicio;i < fin; i++)
+        {
+            resul.push(arr[i]);
+        }
+
+        return resul;
+    }
+    else
+    {
+        console.log("ERROR, debes pasar un array y dos numeros");
+    }
+    
 }
 
 console.log("\n2.-");
 
-console.log (tajada([3, 2, 30, 4], 1, 3)); // Devuelve un array nuevo [2, 30];
+console.log (tajada([3,2,30,4], 1, 3)); // Devuelve un array nuevo [2, 30];
 
 ///////////////////////////////////////////////////////////////////
 
@@ -72,71 +80,79 @@ console.log (tajada([3, 2, 30, 4], 1, 3)); // Devuelve un array nuevo [2, 30];
 
 function romboHueco(num)
 {
-    //PARTE DE ARRIBA Y MEDIO
-    let espacios=num-1;
-    let asteriscos=1;
-    let string;
-    let rombo="";
-
-    for (let i=1;i<=num;i++)
+    if (typeof num == "number" && num > 1)
     {
-        string="";
 
-        for (let j=1;j<=espacios;j++)
-        {
-            string+=" ";
-        }
+        //PARTE DE ARRIBA Y MEDIO
+        let espacios=num-1;
+        let asteriscos=1;
+        let string;
+        let rombo="";
 
-        for (let j=1;j<=asteriscos;j++)
+        for (let i=1;i<=num;i++)
         {
-            if (j==1 || j==asteriscos)
-            {
-                string+="*";
-            }
-            else
+            string="";
+
+            for (let j=1;j<=espacios;j++)
             {
                 string+=" ";
             }
-        }
 
-        asteriscos+=2;
-        espacios-=1;
-
-        rombo+= string+"\n";
-
-    }
-
-    //PARTE DE ABAJO
-    espacios=1;
-    asteriscos=(num*2)-3;
-
-    for (let i=1;i<=num-1;i++)
-    {
-        string="";
-        for (let j=1;j<=espacios;j++)
-        {
-            string+=" ";
-        }
-
-        for (let j=1;j<=asteriscos;j++)
-        {
-            if (j==1 || j==asteriscos)
+            for (let j=1;j<=asteriscos;j++)
             {
-                string+="*";
+                if (j==1 || j==asteriscos)
+                {
+                    string+="*";
+                }
+                else
+                {
+                    string+=" ";
+                }
             }
-            else
+
+            asteriscos+=2;
+            espacios-=1;
+
+            rombo+= string+"\n";
+
+        }
+
+        //PARTE DE ABAJO
+        espacios=1;
+        asteriscos=(num*2)-3;
+
+        for (let i=1;i<=num-1;i++)
+        {
+            string="";
+            for (let j=1;j<=espacios;j++)
             {
                 string+=" ";
             }
-        }
 
-        asteriscos-=2;
-        espacios+=1;
-        rombo+=string + "\n";
+            for (let j=1;j<=asteriscos;j++)
+            {
+                if (j==1 || j==asteriscos)
+                {
+                    string+="*";
+                }
+                else
+                {
+                    string+=" ";
+                }
+            }
+
+            asteriscos-=2;
+            espacios+=1;
+            rombo+=string + "\n";
+        }
+        console.log(rombo);
     }
-    console.log(rombo);
+    else
+    {
+        console.log("ERROR, el valor debe ser un número.");
+    }
 }
 
 console.log("\n3.-");
 
-romboHueco(4);
+romboHueco(NaN);
