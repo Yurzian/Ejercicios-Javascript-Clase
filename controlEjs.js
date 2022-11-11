@@ -12,24 +12,27 @@ function ordena(arr, numerico)
     let menor=0;
     let resul=arr;
     
-    if (!numerico)
-    {
-        for (let valor of resul)
-        {
-            valor = valor.toString();
-        }
-    }
-    
     for (let i=0; i<arr.length; i++)
         {
             menor=i;
 
             for (let j=i;j<arr.length;j++)
             {
-                if (resul[j] < resul[menor])
+                if (numerico)
                 {
-                    menor = j;
+                    if (resul[j] < resul[menor])
+                    {
+                        menor = j;
+                    }
                 }
+                else
+                {
+                    if (String(resul[j]) < String(resul[menor]))
+                    {
+                        menor = j;
+                    }
+                }
+
             }
 
             swap(arr,i,menor);//Creada por mi, arriba
