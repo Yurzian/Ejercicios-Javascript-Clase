@@ -9,36 +9,43 @@ function swap(arr,v1,v2)
 
 function ordena(arr, numerico)
 {
-    let menor=0;
-    let resul=arr;
-    
-    for (let i=0; i<arr.length; i++)
-        {
-            menor=i;
-
-            for (let j=i;j<arr.length;j++)
+    if (Array.isArray(arr) && arr.length>0 && typeof numerico == "boolean")
+    {
+        let menor=0;
+        let resul=arr;
+        
+        for (let i=0; i<arr.length; i++)
             {
-                if (numerico)
+                menor=i;
+
+                for (let j=i;j<arr.length;j++)
                 {
-                    if (resul[j] < resul[menor])
+                    if (numerico)
                     {
-                        menor = j;
+                        if (resul[j] < resul[menor])
+                        {
+                            menor = j;
+                        }
                     }
-                }
-                else
-                {
-                    if (String(resul[j]) < String(resul[menor]))
+                    else
                     {
-                        menor = j;
+                        if (String(resul[j]) < String(resul[menor]))
+                        {
+                            menor = j;
+                        }
                     }
+
                 }
 
+                swap(arr,i,menor);//Creada por mi, arriba
             }
 
-            swap(arr,i,menor);//Creada por mi, arriba
-        }
-
-        return resul;
+            return resul;
+    }
+    else
+    {
+        console.log("ERROR, debes pasar un array y un booleano");
+    }
 }
 console.log("1.-");
 
