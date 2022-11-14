@@ -59,7 +59,7 @@ console.log (ordena([3, 2, 30, 4], false));  // devuelve un array nuevo ordenado
 
 function tajada (arr, inicio, fin)
 {
-    if (Array.isArray(arr) && arr.length>0 && typeof inicio != "number" && inicio > 1 && typeof fin != "number" && fin > 1)
+    if (Array.isArray(arr) && arr.length>0 && typeof inicio == "number" && inicio > 0 && typeof fin == "number" && fin > 0)
     {
         let resul=[];
 
@@ -87,7 +87,7 @@ console.log (tajada([3,2,30,4], 1, 3)); // Devuelve un array nuevo [2, 30];
 
 function romboHueco(num)
 {
-    if (typeof num == "number" && num > 1)
+    if (typeof num == "number" && num > 0)
     {
 
         //PARTE DE ARRIBA Y MEDIO
@@ -162,4 +162,4 @@ function romboHueco(num)
 
 console.log("\n3.-");
 
-romboHueco(NaN);
+romboHueco(1);
