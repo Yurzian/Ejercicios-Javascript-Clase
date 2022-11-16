@@ -12,7 +12,7 @@ function ordena(arr, numerico)
     if (Array.isArray(arr) && arr.length>0 && typeof numerico == "boolean")
     {
         let menor=0;
-        let resul=arr;
+        let resul= [...arr];
         
         for (let i=0; i<arr.length; i++)
             {
@@ -59,13 +59,17 @@ console.log (ordena([3, 2, 30, 4], false));  // devuelve un array nuevo ordenado
 
 function tajada (arr, inicio, fin)
 {
-    if (Array.isArray(arr) && arr.length>0 && typeof inicio == "number" && inicio > 0 && typeof fin == "number" && fin > 0)
+    if (Array.isArray(arr) && arr.length>0 && typeof inicio == "number" && inicio > 0 && typeof fin == "number" && fin > 0 && inicio < fin)
     {
         let resul=[];
 
+        let contador=0;
+
         for (let i=inicio;i < fin; i++)
         {
-            resul.push(arr[i]);
+            resul[contador]=arr[i];
+
+            contador++;
         }
 
         return resul;
