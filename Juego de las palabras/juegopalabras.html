@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- BOOTSTRAP CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <title>Juego</title>
+</head>
+<body style="background-color:antiquewhite">
+
+    <div class="container my-5 " id="cuerpo">
+        <h1>Juego de las palabras</h1>
+        <br>
+        <form id="formulario" action="#" method="get">
+            <label class="col-form-label fs-5" id="letra"></label>
+            <input type="text" class="form-text fs-5" name="campo1" id="campo1">
+            <button type="submit" class="btn btn-outline-secondary">Enviar</button>
+        </form>
+        <br>
+        <p id="resultado" class="fs-5" style="min-height:50px;"></p>
+        <br>
+        <div class="row text-center">
+            <div class="col-4 fs-1">
+                Contador
+            </div>
+            <div class="col-4 fs-1">
+                Puntuación
+            </div>
+            <div class="col-4 fs-1">
+                Historial
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-4" style="position: relative;">
+                <h1 id="contador"></h1>
+                 <button type="button" id="comenzar" class="btn btn-success btn-circle btn-lg fs-3" style="border-radius: 50%; width: 200px; height: 200px;
+                    position: absolute; left: 559px; top: 150px;">COMENZAR</button>
+            </div>
+            <div class="col-4">
+                <h1 id="puntuacion"></h1>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-6">
+                        <p id="historialBuenas" class="fs-5"></p>
+                    </div>
+                    <div class="col-6">
+                        <p id="historialMalas" class="fs-5"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./juegopalabras.js"></script>
+</body>
+</html>
