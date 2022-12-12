@@ -7,7 +7,7 @@ let letra = letraAleatoria();
 escribirContador.innerHTML = numContador;
 
 document.getElementById('letra').textContent = "Escribe una palabra que empiece por " + letra;  //escribimos la letra
-document.getElementById("comenzar").addEventListener("click", () => window.setInterval(contador, 1000), letra=letraAleatoria()); //al hacer clic en el boton empieza el contador
+document.getElementById("comenzar").addEventListener("click", () => window.setInterval(contador, 1000)); //al hacer clic en el boton empieza el contador
 document.getElementById("comenzar").addEventListener("click", () => document.getElementById("boton").style.display = "none");  //al hacer clic en el boton, desaparece
 document.getElementById("puntuacion").textContent = puntuacionTotal;  //escribir puntuacion
 
