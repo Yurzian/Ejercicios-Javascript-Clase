@@ -1,3 +1,5 @@
+"use strict";
+
 let palabraABuscar = "";
 let historialPalabras = [];
 let puntuacionTotal = 0;
