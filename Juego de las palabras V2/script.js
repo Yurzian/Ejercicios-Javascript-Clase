@@ -1,6 +1,5 @@
-"use strict";
+import {diccionario} from "https://cdn.jsdelivr.net/gh/fran-dawbaza/spanish-dictionary/diccionario.js";
 
-//import {diccionario} from "./diccionario.js";
 let palabraABuscar = "";
 let historialPalabras = [];
 let puntuacionTotal = 0;
@@ -13,6 +12,7 @@ escribirContador.innerHTML = numContador;
 document.getElementById('letra').textContent = "Escribe una palabra que empiece por " + letra;  //escribimos la letra
 document.getElementById("comenzar").addEventListener("click", () => window.setInterval(contador, 1000)); //al hacer clic en el boton empieza el contador
 document.getElementById("comenzar").addEventListener("click", () => document.getElementById("boton").style.display = "none");  //al hacer clic en el boton, desaparece
+document.getElementById("comenzar").addEventListener("click", () => document.getElementById("formulario").style.display = "block");  //al hacer clic en el boton, aparece el formulario
 document.getElementById("puntuacion").textContent = puntuacionTotal;  //escribir puntuacion
 
 document.getElementById('formulario').addEventListener('submit', (evento) => {  //al enviar la palabra
@@ -23,13 +23,14 @@ document.getElementById('formulario').addEventListener('submit', (evento) => {  
 });
 
 function comprobarPalabra(palabraABuscar) {
-    if (palabraABuscar[0] === letra && palabraABuscar.length > 0) {  //si la primera letra de la palabra es la aleatoria 
+    if (palabraABuscar[0]==letra && diccionario.includes(palabraABuscar) == true) {  //si la primera letra de la palabra es la aleatoria 
         document.getElementById("resultado").textContent = "PALABRA CORRECTA!";
         historialPalabras.push(document.getElementById("campo1").value);  //metemos la palabra en el array de palabras acertadas
         letra = letraAleatoria();  //metemos otra letra aleatoria
         document.getElementById('letra').textContent = "Escribe una palabra que empiece por " + letra;  //escribimos la nueva letra
         document.getElementById('historialBuenas').innerHTML += "<center>✔️  " + document.getElementById("campo1").value + "</center><br>";  //escribimos la palabra en la lista de palabras acertadas
-        puntuacionTotal += 10;  //sumamos puntuacion
+        puntuacionTotal += puntuacion(palabraABuscar);  //sumamos puntuacion
+        console.log(puntuacionTotal);
         document.getElementById("puntuacion").textContent = puntuacionTotal;  //escribimos puntuacion
         numContador = 15;  //reiniciamos contador
     }
@@ -60,7 +61,8 @@ function contador() {
 }
 
 function puntuacion (palabra){
-    let primeraLetra = palabra[0];
+    let primeraLetra = palabra.charCodeAt(0);
+    console.log(primeraLetra);
     let puntos = 0;
 
     switch (palabra.length) {
@@ -79,4 +81,23 @@ function puntuacion (palabra){
         default:
             puntos += 5;
     }
+
+    switch (primeraLetra) {
+        case 97,99,100,101 : puntos ++;
+            break;
+
+        case 109,112,114,115,116 : puntos += 2;
+            break;
+
+        case 98,102,103,104,105,118 : puntos +=3;
+            break;
+
+        case 106,108,110,111,122: puntos += 4;
+            break;
+            
+        default:
+            puntos += 5;
+    }
+
+    return puntos;
 }
