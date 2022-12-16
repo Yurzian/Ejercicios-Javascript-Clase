@@ -23,14 +23,11 @@ document.getElementById('formulario').addEventListener('submit', (evento) => {  
 });
 
 function comprobarPalabra(palabraABuscar) {
-    if (palabraABuscar[0]==letra && diccionario.includes(palabraABuscar) == true) {  //si la primera letra de la palabra es la aleatoria 
+    if (palabraABuscar[0] === letra && diccionario.includes(palabraABuscar) === true && historialPalabras.includes(palabraABuscar) === false) {  //si la primera letra de la palabra es la aleatoria 
         document.getElementById("resultado").textContent = "PALABRA CORRECTA!";
         historialPalabras.push(document.getElementById("campo1").value);  //metemos la palabra en el array de palabras acertadas
-        letra = letraAleatoria();  //metemos otra letra aleatoria
-        document.getElementById('letra').textContent = "Escribe una palabra que empiece por " + letra;  //escribimos la nueva letra
         document.getElementById('historialBuenas').innerHTML += "<center>✔️  " + document.getElementById("campo1").value + "</center><br>";  //escribimos la palabra en la lista de palabras acertadas
         puntuacionTotal += puntuacion(palabraABuscar);  //sumamos puntuacion
-        console.log(puntuacionTotal);
         document.getElementById("puntuacion").textContent = puntuacionTotal;  //escribimos puntuacion
         numContador = 15;  //reiniciamos contador
     }
@@ -55,17 +52,19 @@ function contador() {
         escribirContador.style.color = "black";
     }
     if (numContador < 0) {  //cuando se acabe el tiempo
+        document.getElementById("juego").style.display = "none"; //mostramos final
+        document.getElementById("final").style.display = "block"; //mostramos final
         document.getElementById("puntuacion").textContent = puntuacionTotal;  
-        document.getElementById("cuerpo").innerHTML = "<h1>TIEMPO AGOTADO!</h1><br><br> Tu puntuación es: " + puntuacionTotal + "<br><br> Palabras acertadas: " + historialPalabras.length;  //escribimos en la pagina la puntuacion final
+        document.getElementById("puntuacionFinal").innerHTML = puntuacionTotal; //escribimos en la pagina la puntuacion
+        document.getElementById("acertadas") = historialPalabras.length;  //escribimos en la pagina las palabras acertadas
     }
 }
 
 function puntuacion (palabra){
-    let primeraLetra = palabra.charCodeAt(0);
-    console.log(primeraLetra);
+    let primeraLetra = palabra.charCodeAt(0);  //cogemos la primera palabra y la pasamos a ascii
     let puntos = 0;
 
-    switch (palabra.length) {
+    switch (palabra.length) { //segun la longitud de la palabra
         case 8,9,10,11,12 : puntos ++;
             break;
 
@@ -82,7 +81,7 @@ function puntuacion (palabra){
             puntos += 5;
     }
 
-    switch (primeraLetra) {
+    switch (primeraLetra) {  //segun la primera letra, estan en codigo ascii
         case 97,99,100,101 : puntos ++;
             break;
 
