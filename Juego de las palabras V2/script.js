@@ -1,19 +1,24 @@
 import {diccionario} from "https://cdn.jsdelivr.net/gh/fran-dawbaza/spanish-dictionary/diccionario.js";
 
-let palabraABuscar = "";
-let historialPalabras = [];
-let puntuacionTotal = 0;
-let numContador = 15;
+let palabraABuscar;
+let historialPalabras;
+let historialFalladas;
+let puntuacionTotal;
+let tiempoJuego;
+let numContador;
+let usuario;
 let escribirContador = document.getElementById("contador");
-let letra = letraAleatoria();
-escribirContador.innerHTML = numContador;
+let letra;
 
 
-document.getElementById('letra').textContent = "Escribe una palabra que empiece por " + letra;  //escribimos la letra
-document.getElementById("comenzar").addEventListener("click", () => window.setInterval(contador, 1000)); //al hacer clic en el boton empieza el contador
-document.getElementById("comenzar").addEventListener("click", () => document.getElementById("boton").style.display = "none");  //al hacer clic en el boton, desaparece
-document.getElementById("comenzar").addEventListener("click", () => document.getElementById("formulario").style.display = "block");  //al hacer clic en el boton, aparece el formulario
-document.getElementById("puntuacion").textContent = puntuacionTotal;  //escribir puntuacion
+document.getElementById("comenzar").addEventListener("click", () => comenzarJuego()); //al hacer clic en el boton de comenzar, empieza el juegoi
+document.getElementById("restart").addEventListener("click", () => ponerUsuario());  //al hacer clic en el boton de restart, ponemos el usuario para vovler a jugar de nuevo
+
+document.getElementById('logUsuario').addEventListener('submit', (evento) => {  //al enviar el usuario
+    evento.preventDefault();
+    usuario = document.getElementById("user").value;  //guardamos el nombre
+    comenzarJuego();  //comenzamos juego
+});
 
 document.getElementById('formulario').addEventListener('submit', (evento) => {  //al enviar la palabra
     evento.preventDefault();
@@ -33,7 +38,12 @@ function comprobarPalabra(palabraABuscar) {
     }
     else {
         document.getElementById("resultado").textContent = "FALLASTE!";
-        document.getElementById('historialMalas').innerHTML += "<center>❌  " + document.getElementById("campo1").value + "</center><br>";  //escribimos la palabra en la lista de palabras falladas
+        if (historialFalladas.includes(palabraABuscar) === false || historialPalabras.includes(palabraABuscar === false)) //si ya está escrita
+        {
+            document.getElementById('historialMalas').innerHTML += "<center>❌  " + document.getElementById("campo1").value + "</center><br>";  //escribimos la palabra en la lista de palabras falladas
+            historialFalladas.push(document.getElementById("campo1").value);  //metemos la palabra en el array de palabras falladas
+        }
+    
     }
 }
 
@@ -52,11 +62,7 @@ function contador() {
         escribirContador.style.color = "black";
     }
     if (numContador < 0) {  //cuando se acabe el tiempo
-        document.getElementById("juego").style.display = "none"; //mostramos final
-        document.getElementById("final").style.display = "block"; //mostramos final
-        document.getElementById("puntuacion").textContent = puntuacionTotal;  
-        document.getElementById("puntuacionFinal").innerHTML = puntuacionTotal; //escribimos en la pagina la puntuacion
-        document.getElementById("acertadas") = historialPalabras.length;  //escribimos en la pagina las palabras acertadas
+        finalizarJuego();
     }
 }
 
@@ -98,5 +104,93 @@ function puntuacion (palabra){
             puntos += 5;
     }
 
+    for (let i=1; i< palabra.length; i++)  //si la palabra contiene alguna de estas letras, debemos sumar puntos
+    {
+        if (palabra[i]=== "k" || palabra[i]=== "ñ" || palabra[i]=== "q" || 
+                palabra[i]=== "w" || palabra[i]=== "x" || palabra[i]=== "y")
+        puntos ++;
+    }
+
     return puntos;
+}
+
+function comenzarJuego()
+{
+    document.getElementById("final").style.display = "none";
+    document.getElementById("log").style.display = "none";
+    document.getElementById("juego").style.display = "block";  //solo mostramos en el html la parte del juego
+    palabraABuscar = ""  //ponemos todos los valores en 0
+    puntuacionTotal = 0;
+    letra = letraAleatoria();
+    numContador = 15;
+    escribirContador.innerHTML = numContador;
+    historialPalabras = [];  
+    historialFalladas = [];
+    document.getElementById('letra').textContent = "Escribe una palabra que empiece por " + letra;  //escribimos la letra
+    tiempoJuego = setInterval(contador, 1000); //usamos el contador
+    document.getElementById("resultado").textContent = "";  
+    document.getElementById('historialMalas').innerHTML = "";
+    document.getElementById('historialBuenas').innerHTML = "";
+    document.getElementById("puntuacion").textContent = puntuacionTotal;  //escribimos puntuacion
+}
+
+function finalizarJuego()
+{
+    clearInterval(tiempoJuego); //paramos contador
+    document.getElementById("juego").style.display = "none"; //mostramos final
+    document.getElementById("final").style.display = "block"; //mostramos final
+    guardarUsuario(usuario,historialPalabras.length);  //guardamos la información del usuario (nombre y palabras acertadas)
+    document.getElementById("puntuacion").innerHTML = puntuacionTotal; //mostramnos la puntuacion de la partida actual
+    document.getElementById("puntuacionFinal").innerHTML = puntuacionTotal; //escribimos en la pagina la puntuacion
+    document.getElementById("acertadas").innerHTML = historialPalabras.length;  //escribimos en la pagina las palabras acertadas
+    document.getElementById("usuario").innerHTML = obtenerUsuario(usuario).nombre;  //recogemos el nombre de usuario y lo mostramos
+    document.getElementById("historialJugadas").innerHTML = obtenerUsuario(usuario).partidas;  //recogemos el historial de partidas jugadas guardado y lo mostramos
+    document.getElementById("puntuacionMedia").innerHTML = puntuacionMedia(obtenerUsuario(usuario));  //recogemos la media de palabras acertadas con la información guardada y la mostramos
+}
+
+function ponerUsuario ()
+{
+    document.getElementById("final").style.display = "none";  
+    document.getElementById("log").style.display = "block";  //solo mostramos la parte del html para poner el usuario
+    document.getElementById("juego").style.display = "none";
+}
+
+function guardarUsuario(cpNombre,cpAcertadas){
+    let persona;  //creamos persona
+
+    if (localStorage.getItem(cpNombre)) //si ya existe el usuario 
+    {
+        persona = JSON.parse (localStorage.getItem (cpNombre));  //le ponemos los valores del usuario a persona
+        persona.partidas ++;  //sumamos una partida
+        persona.pAcertadas.push(cpAcertadas);  //metemos en el array el numero de palabras acertadas en la partida
+    }
+    else  //si no existe el usuario creamos la persona de 0
+    {
+        persona = {
+            nombre : cpNombre,
+            partidas : 1,
+            pAcertadas : []
+        }
+        persona.pAcertadas.push(cpAcertadas);  //metemos en el array el numero de palabras acertadas en la partida
+    }
+
+    localStorage.setItem(cpNombre,JSON.stringify(persona));  //metemos al usuario en el local storage
+}
+
+function obtenerUsuario(cpNombre){
+
+    let persona = JSON.parse(localStorage.getItem(cpNombre));  //obtenemos la información del usuario a traves del nombre
+
+    return persona;  //devolvemos el usuario
+}
+
+function puntuacionMedia(persona){
+    let temporal=0;
+    for (let i=0; i< persona.pAcertadas.length; i++)  //recorremos cada partida jugada, sumamos los valores y los dividimos entre el numero de partidas para obtener la media
+    {
+        temporal += persona.pAcertadas[i];
+    }
+    temporal = temporal / persona.pAcertadas.length;
+
+    return temporal.toFixed(2);  //devolvemos la media
 }
