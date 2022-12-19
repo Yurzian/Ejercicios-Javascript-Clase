@@ -14,10 +14,21 @@
 <body style="background-color:antiquewhite">
 
     <div class="container my-5">
-        <div id="juego">
+        <div id="log">
             <h1>Juego de las palabras V2</h1>
             <br>
-            <form id="formulario" action="#" method="get" style="display:none">
+            <form id="logUsuario" action="#" method="get">
+                <label class="col-form-label fs-5">Escribe el usuario: </label>
+                <input type="text" class="form-text fs-5" name="user" id="user">
+                <button type="submit" class="btn btn-outline-secondary">Enviar</button>
+            </form>
+            <div id="boton"><button type="button" id="comenzar" class="btn btn-success btn-circle btn-lg fs-3"
+                style="border-radius: 50%; width: 200px; height: 200px; position: absolute;">COMENZAR</button></div>
+        </div>
+        <div id="juego" style="display:none">
+            <h1>Juego de las palabras V2</h1>
+            <br>
+            <form id="formulario" action="#" method="get">
                 <label class="col-form-label fs-5" id="letra"></label>
                 <input type="text" class="form-text fs-5" name="campo1" id="campo1">
                 <button type="submit" class="btn btn-outline-secondary">Enviar</button>
@@ -39,9 +50,6 @@
             <div class="row text-center">
                 <div class="col-4" style="position: relative;">
                     <h1 id="contador"></h1>
-                    <div id="boton"><button type="button" id="comenzar" class="btn btn-success btn-circle btn-lg fs-3"
-                            style="border-radius: 50%; width: 200px; height: 200px;
-                    position: absolute; left: 559px; top: 150px;">COMENZAR</button></div>
                 </div>
                 <div class="col-4">
                     <h1 id="puntuacion"></h1>
@@ -67,18 +75,20 @@
                     <th>Usuario</th>
                     <th>Puntuación actual</th>
                     <th>Acertadas actual</th>
-                    <th>Partidas juagdas</th>
+                    <th>Partidas jugadas</th>
                     <th>Puntuación media</th>
                 </tr>
                 <tr class="fs-4">
-                    <td>X</td>
-                    <td><p id="puntuacionFinal"></td>
-                    <td><p id="Acertadas"></p></td>
-                    <td>X</td>
-                    <td>X</td>
+                    <td><p id="usuario"></p></td>
+                    <td><p id="puntuacionFinal"></p></td>
+                    <td><p id="acertadas"></p></td>
+                    <td><p id="historialJugadas"></p></td>
+                    <td><p id="puntuacionMedia"></p></td>
                 </tr>
             </table>
-            </p>
+            <div id="boton"><button type="button" id="restart" class="btn btn-warning btn-circle btn-lg fs-3"
+                style="border-radius: 50%; width: 200px; height: 200px;
+        position: absolute;">RESTART</button></div>
         </div>
     </div>
 
