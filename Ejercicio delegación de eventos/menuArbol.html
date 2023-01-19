@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    li span:hover {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <ul class="tree" id="tree">
+    <li>Animals
+      <ul>
+        <li>Mammals
+          <ul>
+            <li>Cows</li>
+            <li>Donkeys</li>
+            <li>Dogs</li>
+            <li>Tigers</li>
+          </ul>
+        </li>
+        <li>Other
+          <ul>
+            <li>Snakes</li>
+            <li>Birds</li>
+            <li>Lizards</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Fishes
+      <ul>
+        <li>Aquarium
+          <ul>
+            <li>Guppy</li>
+            <li>Angelfish</li>
+          </ul>
+        </li>
+        <li>Sea
+          <ul>
+            <li>Sea trout</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <script>
+    const tree = document.getElementById("tree");
+    const listaLI = tree.querySelectorAll("li");
+
+
+    for (let li of listaLI) 
+    {
+      let texto = li.firstChild;
+      let span = document.createElement("span");
+
+      span.append(texto);
+      li.prepend(span);
+    }
+
+    tree.addEventListener("click", evento => {
+    
+      console.log(event.target.tagName);
+
+      if (event.target.tagName != "SPAN") return;
+
+      let hijo = event.target.parentNode.querySelector("ul");
+      console.log(hijo);
+
+      if (!hijo) return;
+
+      if (hijo.hidden) {
+        hijo.hidden = false;
+      } 
+      else {
+        hijo.hidden = true;
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>
