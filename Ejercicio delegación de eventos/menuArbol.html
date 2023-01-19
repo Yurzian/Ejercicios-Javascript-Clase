@@ -63,7 +63,7 @@
       li.prepend(span);
     }
 
-    tree.addEventListener("click", evento => {
+    tree.addEventListener("click", event => {
     
       console.log(event.target.tagName);
 
@@ -72,14 +72,7 @@
       let hijo = event.target.parentNode.querySelector("ul");
       console.log(hijo);
 
-      if (!hijo) return;
-
-      if (hijo.hidden) {
-        hijo.hidden = false;
-      } 
-      else {
-        hijo.hidden = true;
-      }
+      if (hijo) hijo.hidden = !hijo.hidden;
 
     });
   </script>
