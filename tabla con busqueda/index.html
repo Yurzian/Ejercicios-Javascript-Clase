@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table {
+            border: 5px solid green;
+            text-align: center;
+            width: 100%;
+        }
+
+        table th {
+            border: 3px solid rgb(80, 63, 205);
+        }
+
+        table td {
+            border: 1px solid peru;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <table id="gridDatos">
+        <thead>
+            <th>Columna 1</th>
+            <th>Columna 2</th>
+            <th>Columna 3</th>
+            <th>Columna 4</th>
+            <th>Columna 5</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Lorem ipsum dolor sit.</td>
+            <td>Praesentium, consectetur fugiat! Facere.</td>
+            <td>Optio aliquid earum cum.</td>
+            <td>Rem quas eius aspernatur.</td>
+            <td>Molestiae veniam ratione tempora!</td>
+        </tr>
+        <tr>
+            <td>Lorem ipsum dolor sit.</td>
+            <td>Deleniti quis distinctio autem.</td>
+            <td>Unde veniam non cupiditate?</td>
+            <td>Sint, maxime alias! Cumque?</td>
+            <td>Suscipit eligendi laborum debitis.</td>
+        </tr>
+        <tr>
+            <td>Lorem ipsum dolor sit.</td>
+            <td>Sunt officiis itaque odit!</td>
+            <td>Aliquid dolore neque accusantium.</td>
+            <td>Tempora dolorem omnis inventore!</td>
+            <td>Cupiditate ad eum omnis.</td>
+        </tr>
+        <tr>
+            <td>Lorem ipsum dolor sit.</td>
+            <td>Suscipit nisi ratione aliquid.</td>
+            <td>Neque corrupti vel quaerat.</td>
+            <td>A ipsam doloremque nesciunt.</td>
+            <td>Sunt adipisci magni sint.</td>
+        </tr>
+        <tr>
+            <td>Lorem ipsum dolor sit.</td>
+            <td>Dolores sint officiis facilis!</td>
+            <td>Alias quas sed pariatur?</td>
+            <td>Expedita blanditiis natus nemo.</td>
+            <td>Sunt fugiat dolor reprehenderit?</td>
+        </tr>
+    </tbody>
+    </table>
+    <script>
+        const tabla = document.getElementById("gridDatos");
+        const buscar = document.createElement("input");
+        buscar.setAttribute("placeholder","Introduce tu busqueda");
+        buscar.setAttribute("type", "text");
+        buscar.style.margin = "10px";
+
+        document.body.prepend(buscar);
+
+        buscar.addEventListener("input", evento => {
+            for (fila of tabla.rows)
+            {
+                let contenidoTexto = fila.textContent.toLowerCase();
+                console.log(contenidoTexto);
+                if (contenidoTexto.includes(buscar.value.toLowerCase())) fila.hidden = false;
+                else fila.hidden = true;
+            }
+        })
+    </script>
+</body>
+</html>
