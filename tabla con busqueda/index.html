@@ -74,11 +74,12 @@
         buscar.setAttribute("placeholder","Introduce tu busqueda");
         buscar.setAttribute("type", "text");
         buscar.style.margin = "10px";
+        const filas = tabla.tBodies[0].rows;
 
         document.body.prepend(buscar);
 
         buscar.addEventListener("input", evento => {
-            for (fila of tabla.rows)
+            for (fila of filas)
             {
                 let contenidoTexto = fila.textContent.toLowerCase();
                 console.log(contenidoTexto);
