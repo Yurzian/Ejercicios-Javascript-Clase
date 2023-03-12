@@ -1,6 +1,3 @@
-//He intentado hacerlo para cada ususario pero no lo he logrado, solo me lo hace en el primero, no sé como hacerlo
-//He utilizado primero el fetch como pedías y después el GET para hacerlo de las dos formas
-
 let listaUsuarios = document.getElementById("listaUsuarios");
 
 fetch('https://jsonplaceholder.typicode.com/users')
